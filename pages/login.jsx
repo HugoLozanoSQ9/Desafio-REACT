@@ -71,6 +71,7 @@ export default function Login() {
     useEffect(() => {
         document.title = "Welcome! - DEV Community"
     }, [])
+
     async function onSubmit(data) {
 
         try {
@@ -80,13 +81,14 @@ export default function Login() {
                 password: data.password
             })
 
-            setFocus("email")
             reset()
 
             if (userToken.success) {
-                //toast.success("Estas Logeado")
-                //localStorage.setItem("Token", JSON.stringify(userToken.data.token))
-                handleClick("/")
+                toast.success("Log-in exitoso")
+                setTimeout(() => {
+                    
+                    handleClick("/")
+                }, 2000)
 
                 if (data.check === true) {
                     localStorage.setItem("Token", JSON.stringify(userToken.data.token))
