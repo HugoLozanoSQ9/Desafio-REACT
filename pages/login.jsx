@@ -1,7 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import clsx from "clsx"
 import { useRouter } from "next/router"
-
+import { useForm } from "react-hook-form"
+import { login } from "./api/login"
+import { toast, Toaster } from "sonner"
 export default function Login() {
     const logOp = [
         {
@@ -58,109 +60,185 @@ export default function Login() {
 
     ]
 
+    const { register, handleSubmit, formState: { errors, isValid, isSubmitted }, reset, setFocus } = useForm()
+
     const router = useRouter()
     function handleClick(path) {
         router.push(path)
     }
+    const [token, setToken] = useState(null)
+
+    useEffect(() => {
+        document.title = "Welcome! - DEV Community"
+    }, [])
+    async function onSubmit(data) {
+
+        try {
+
+            const userToken = await login({
+                email: data.email,
+                password: data.password
+            })
+
+            setFocus("email")
+            reset()
+
+            if (userToken.success) {
+                //toast.success("Estas Logeado")
+                //localStorage.setItem("Token", JSON.stringify(userToken.data.token))
+                handleClick("/")
+
+                if (data.check === true) {
+                    localStorage.setItem("Token", JSON.stringify(userToken.data.token))
+                    setToken(userToken)
+                }
+
+            } else {
+                toast.error("Usuario o contraseña incorrecta, intentalo nuevamente")
+            }
+
+
+        } catch (error) {
+            console.log("Error al iniciar sesión", error)
+            alert("Error al iniciar sesión", error)
+        }
+
+
+    }
 
     const [account, setAccount] = useState(false)
     return (
-        <main className="flex justify-center flex-wrap items-center">
+        <>
+            <Toaster position="top-right" richColors />
 
-            <div className="w-full flex justify-center pt-6 flex-wrap">
-                <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/original_logo_0DliJcfsTcciZen38gX9.png" className="h-[48px]" alt="" />
-                <h1 className="font-bold w-full text-center pt-4 text-2xl "> Join the DEV Comunnity </h1>
-                <p className="text-xs pt-2 text-center"> DEV Community is a community of 1,684,869 amazing developers </p>
+            <main className="flex justify-center flex-wrap items-center">
 
-            </div>
-
-            <div className="w-full gap-2 flex items-center pt-6 flex-wrap flex-col  ">
-
-                {
-                    logOp.map((op, i) => {
-                        return (
-                            <article key={`Article - ${i}`} className="w-[90%] border-2  hover:bg-gray-50 p-3  rounded flex sm:w-[60%] max-w-xl cursor-pointer ">
-                                {op.svg}
-                                <span className="w-full flex justify-center" >{account ? op.in : op.text}</span>
-
-                            </article>
-                        )
-                    })
-                }
-
-
-            </div>
-
-            <div className={clsx("w-full gap-2 flex items-center pt-2 flex-wrap flex-col", { "hidden": account })}>
-
-                <article className="w-[90%] border-2  hover:bg-gray-50 p-3  rounded flex sm:w-[60%] max-w-xl cursor-pointer ">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-hidden="true" class="crayons-icon crayons-icon--default">
-                        <path d="M3 3h18a1 1 0 011 1v16a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1zm9.06 8.683L5.648 6.238 4.353 7.762l7.72 6.555 7.581-6.56-1.308-1.513-6.285 5.439h-.001z"></path>
-                    </svg>
-                    <span className="w-full flex justify-center" onClick={() => handleClick("/signUp")} > Sign up with Email </span>
-
-                </article>
-
-            </div>
-
-
-
-            <div className={clsx("w-full flex flex-col items-center gap-2", { "hidden": !account })}>
-
-                <div className="flex items-center justify-center w-[90%] max-w-xl sm:w-[60%] mt-4">
-                    <hr className="flex-grow border-gray-300" />
-                    <span className="mx-2">OR</span>
-                    <hr className="flex-grow border-gray-300" />
+                <div className="w-full flex justify-center pt-6 flex-wrap">
+                    <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/original_logo_0DliJcfsTcciZen38gX9.png" className="h-[48px]" alt="" />
+                    <h1 className="font-bold w-full text-center pt-4 text-2xl "> Join the DEV Comunnity </h1>
+                    <p className="text-xs pt-2 text-center"> DEV Community is a community of 1,684,869 amazing developers </p>
 
                 </div>
 
-                <div className="w-full"></div>
+                <div className="w-full gap-2 flex items-center pt-6 flex-wrap flex-col  ">
 
-                <form className="w-[90%]  max-w-xl sm:w-[60%] gap-2 flex items-center  flex-wrap flex-col text-sm">
-                    <p className="self-start">Email</p>
-                    <input type="text" placeholder="Hola" className="border-2 w-full rounded max-w-xl " />
-                    <p className="self-start">Password</p>
-                    <input type="password" placeholder="Hola" className="border-2 w-full rounded max-w-xl " />
+                    {
+                        logOp.map((op, i) => {
+                            return (
+                                <article key={`Article - ${i}`} className="w-[90%] border-2  hover:bg-gray-50 p-3  rounded flex sm:w-[60%] max-w-xl cursor-pointer " onClick={()=>{toast.error("No se ha habilitado esta opción")}}>
+                                    {op.svg}
+                                    <span className="w-full flex justify-center" >{account ? op.in : op.text}</span>
 
-                    <div className="flex items-center w-full">
-                        <input type="checkbox" placeholder="Hola" className="mr-2 cursor-pointer" />
-                        <span className="flex justify-between w-full">
-                            Remember me
-                            <span className="text-blue-500 cursor-pointer ml-auto">
-                                Forgot Password
-                            </span>
-                        </span>
+                                </article>
+                            )
+                        })
+                    }
+
+
+                </div>
+
+                <div className={clsx("w-full gap-2 flex items-center pt-2 flex-wrap flex-col", { "hidden": account })}>
+
+                    <article className="w-[90%] border-2  hover:bg-gray-50 p-3  rounded flex sm:w-[60%] max-w-xl cursor-pointer ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-hidden="true" class="crayons-icon crayons-icon--default">
+                            <path d="M3 3h18a1 1 0 011 1v16a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1zm9.06 8.683L5.648 6.238 4.353 7.762l7.72 6.555 7.581-6.56-1.308-1.513-6.285 5.439h-.001z"></path>
+                        </svg>
+                        <span className="w-full flex justify-center" onClick={() => handleClick("/signUp")} > Sign up with Email </span>
+
+                    </article>
+
+                </div>
+
+
+
+                <div className={clsx("w-full flex flex-col items-center gap-2", { "hidden": !account })}>
+
+                    <div className="flex items-center justify-center w-[90%] max-w-xl sm:w-[60%] mt-4">
+                        <hr className="flex-grow border-gray-300" />
+                        <span className="mx-2">OR</span>
+                        <hr className="flex-grow border-gray-300" />
+
                     </div>
 
+                    <div className="w-full"></div>
 
-                    <button className="rounded bg-[rgb(47,58,178)] text-white  w-full p-4">
-                        Log in
+                    <form className="w-[90%]  max-w-xl sm:w-[60%] gap-2 flex items-center  flex-wrap flex-col text-sm" onSubmit={handleSubmit(onSubmit)} >
+                        <p className="self-start">Email</p>
+                        <input type="text" className="border-2 w-full rounded max-w-xl p-2" required
+                            {...register('email', {
+                                required: { value: true, message: "Campo email requerido" },
+                                minLength: { value: 7, message: "El email debe tener minimo 7 caracteres" },
+                                maxLength: { value: 50, message: " El email debe tener máximo 50 caracteres" },
+                                pattern: {
+                                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                    message: "Formato incorrecto de E-mail"
+                                }
+                            })} />
+                        <p className="self-start">Password</p>
+                        <input type="password" className="border-2 w-full rounded max-w-xl p-2 " required
 
-                    </button>
+                            {...register('password', {
+                                required: { value: true, message: "Campo password requerido" }
+                            })} />
 
-                </form>
+                        <div className="flex items-center w-full">
+                            <input type="checkbox" placeholder="Hola" className="mr-2 cursor-pointer"
+                                {...register('check', {
+                                    required: { value: false },
+                                    defaultValue: { value: false }
+                                })} />
+                            <span className="flex justify-between w-full">
+                                Remember me
+                                <span className="text-blue-500 cursor-pointer ml-auto">
+                                    Forgot Password
+                                </span>
+                            </span>
+                        </div>
+                        {
+                            errors.password && (
+                                <p className=" text-red-500 text-center text-sm font-bold-sm w-full">
+                                    {errors.password?.message}
+                                </p>
+                            )
+                        }
+                        {
+                            errors.email && (
+                                <p className=" text-red-500 text-center text-sm font-bold-sm w-full">
+                                    {errors.email?.message}
+                                </p>
+                            )
+                        }
+
+
+                        <button className="rounded bg-[rgb(47,58,178)] text-white  w-full p-4" disabled={isSubmitted ? !isValid : false /*isSubmitted && !isValid*/}>
+                            Log in
+
+                        </button>
+
+                    </form>
 
 
 
-            </div>
+                </div>
 
 
 
 
-            <div className="w-full flex items-center flex-col">
+                <div className="w-full flex items-center flex-col">
 
-                <p className="text-center w-[90%]  max-w-xl sm:w-[60%] text-xs py-4 italic text-gray-600 ">
-                    By signing up, you are agreeing to our   <span className="text-blue-500 cursor-pointer"> privacy policy, terms of use  </span> <br />and <span className="text-blue-500 cursor-pointer">code of conduct.</span>
-                </p>
+                    <p className="text-center w-[90%]  max-w-xl sm:w-[60%] text-xs py-4 italic text-gray-600 ">
+                        By signing up, you are agreeing to our   <span className="text-blue-500 cursor-pointer"> privacy policy, terms of use  </span> <br />and <span className="text-blue-500 cursor-pointer">code of conduct.</span>
+                    </p>
 
-                <div className=" border w-[90%]  max-w-xl sm:w-[60%]"></div>
+                    <div className=" border w-[90%]  max-w-xl sm:w-[60%]"></div>
 
-                <p className="text-sm py-4">{account ? "New to DEV Community?" : "Already have an account? "} <span className="text-blue-500 cursor-pointer" onClick={() => setAccount(!account)}> {account ? "Create account" : "Log in."}  </span></p>
-            </div>
-
-
+                    <p className="text-sm py-4">{account ? "New to DEV Community?" : "Already have an account? "} <span className="text-blue-500 cursor-pointer" onClick={() => setAccount(!account)}> {account ? "Create account" : "Log in."}  </span></p>
+                </div>
 
 
-        </main>
+
+
+            </main>
+        </>
     )
 }
