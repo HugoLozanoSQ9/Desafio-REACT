@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
 
-export default function createPost() {
+export default function CreatePost() {
     const { register, handleSubmit, formState: { errors, isValid, isSubmitted }, reset, setFocus } = useForm()
 
     const router = useRouter()

@@ -26,7 +26,7 @@ export default function AsideL() {
                     DEV Community is a community of 1,707,784 amazing developers
                 </h2>
                 <p className="text-[#575757] text-sm">
-                    We're a place where coders share, stay up-to-date and grow their careers.
+                    We&apos;re a place where coders share, stay up-to-date and grow their careers.
                 </p>
                 <div className="flex flex-col w-[90%]">
                     <a href="#" className="p-2 border-2 rounded border-[#3B49DF] min-w-32 text-[#3B49DF] text-sm text-center hover:bg-[#3B49DF] hover:text-white" onClick={() => handleClick("/signUp")}>

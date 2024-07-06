@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
 import { getUserId } from "@/pages/api/getUserId";
+
 export default function Navbar() {
     const router = useRouter()
     function handleClick(path) {
