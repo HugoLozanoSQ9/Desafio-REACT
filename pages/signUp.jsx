@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { signUp } from "./api/signUp"
 import { Toaster, toast } from "sonner"
 import { useState, useEffect } from "react"
+import Navbar from "@/components/Navbar"
 export default function RegisterForm() {
     const router = useRouter()
 
@@ -54,6 +55,7 @@ export default function RegisterForm() {
         <>
             <Toaster position="top-right" richColors />
 
+            <Navbar/>
             <main className="grid grid-cols-[5%_1fr_5%] sm:grid-cols-[15%_1fr_15%] md:grid-cols-[20%_1fr_20%] lg:grid-cols-[25%_1fr_25%] xl:grid-cols-[30%_1fr_30%] grid-rows-1 p-4">
 
                 <form className="w-full flex flex-col p-4 border gap-2 text-sm col-start-2 col-end-3" onSubmit={handleSubmit(onSubmit)}>
