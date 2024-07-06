@@ -1,40 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sitio web desplegado: 
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+https://dev-to.sasuki.xyz/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Haciendo uso del repo
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Debes ubicarte en tu terminal y escribir lo siguiente:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```
+cd carpeta_deseada ; git clone git@github.com:HugoLozanoSQ9/Desafio-REACT.git ; cd dev-to-clone ; npm i ; npm run dev ; code .
+```
+1. cd Para cambiar de carpeta
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+2. git clone [link_del_repo] para clonar el repo
+   
+3. cd dev-to-clone Para cambiar a la carpeta del repo
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. npm i Para instalar las dependecias necesarias y que el repo funcione de manera correcta
 
-## Learn More
+5. npm run dev Sirve para comenzar a correr el sitio web en localhost  
+   
+6. code . Sirve para ejecutar visual studio code
 
-To learn more about Next.js, take a look at the following resources:
+7. En caso de que algo falle lo puedes hacer comando por comando :D!
+   
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+en donde dice "carpeta_deseada" nos referimos a la carpeta que vas a crear y en donde quieres que se ubique el repo
+esta la puedes omitir si no deseas crear una nueva carpeta y escribir lo siguiente: 
+```
+git clone git@github.com:HugoLozanoSQ9/Desafio-REACT.git ; cd dev-to-clone ; npm i ; npm run dev ; code .
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## La API usada
 
-## Deploy on Vercel
+La api usada esta ubicada en el siguiente repositorio 
+```
+https://github.com/HugoLozanoSQ9/Desaf-oBackend
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+desde ahí la puedes consultar y ahí mismo viene la documentación la verdad me da flojera ponerla por acá pero alla viene muy detallada :D!
