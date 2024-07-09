@@ -9,23 +9,19 @@ import Posts from "@/components/Posts.jsx";
 export default function Home() {
 
   const [posts, setPosts] = useState([])
-  const [loading, setLoading] = useState(true);
-
+  
 
   useEffect(() => {
     getPosts()
       .then((post) => {
         setPosts(post.data.post)
-        setLoading(false)
-
+        
       })
       .catch((error) => {
         toast.error("Error al obtener los posts")
         console.error("[getPosts error]", error)
-        setLoading(false)
-
       })
-  }, [posts])
+  }, [])
 
  
 
