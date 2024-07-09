@@ -37,7 +37,7 @@ export default function Navbar() {
             return await data;
         } catch (error) {
             console.error('Error al obtener usuario:', error);
-            throw error; // Manejar el error apropiadamente según tu aplicación
+            throw error; 
         }
     }
     function logOut() {

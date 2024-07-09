@@ -1,4 +1,4 @@
-const API_URL = "https://desaf-obackend.onrender.com"
+const API_URL = "https://api-users.sasuki.xyz"
 
 export function getUserId(id) {
 

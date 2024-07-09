@@ -1,4 +1,4 @@
-const API_URL = "https://desaf-obackend.onrender.com"
+const API_URL = ""
 
 export async function getPostById(id){
     const response = await fetch(`${API_URL}/posts/${id}`, {
