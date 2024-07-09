@@ -1,4 +1,4 @@
-const API_URL = ""
+const API_URL = "https://api-users.sasuki.xyz"
 
 export async function getPostById(id){
     const response = await fetch(`${API_URL}/posts/${id}`, {
